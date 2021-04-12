@@ -1,0 +1,37 @@
+main {
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+}
+.modal-80w {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;  
+}
+
+.centrer {
+    text-align: center;
+}
+
+.mt15 {
+    margin-top: 15vw;
+}
+
+.pt15 {
+    padding-top: 15px;
+}
+
+.font-size{
+    font-size:0.7rem;
+}
+
+.modal-fond {
+    border: 1px solid rgba(0,0,0,.2) !important;
+    background-color: #fff !important;
+}

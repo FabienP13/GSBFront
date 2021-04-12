@@ -1,0 +1,40 @@
+.pt100 {
+    padding-top: 10rem;
+}
+
+.fabiengue{
+    display: flex;
+    justify-content: center;
+}   
+
+.fontsize {
+    font-size:xx-large;
+    font-weight: bold;
+    text-align: center;
+}
+.login,
+.image {
+  min-height: 100vh;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;  
+}
+
+.centrer {
+    text-align: center;
+}
+
+
+.bg-image {
+  
+  background-size:contain;
+  background-position: center center;
+}
+.modal-content{
+    background-color: transparent;
+    border: none;
+}

@@ -1,0 +1,37 @@
+
+body {
+    font-size:smaller;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;  
+}
+
+.centrer {
+    text-align: center;
+}
+
+.mt15 {
+    margin-top: 15vw;
+}
+
+.pt15 {padding-top: 15px;}
+.pt100{padding-top: 100px;}
+
+.font-size{
+    font-size:0.7rem;
+}
+
+.ligne {
+    height: 3px;
+    border: none;
+    color: #0d6efd; 
+    opacity: 45%;
+    background-color:#0d6efd; 
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+}
