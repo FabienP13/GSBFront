@@ -8,6 +8,12 @@ class Header extends React.Component {
     super(props)
   }
 
+  signOut(e) {
+    localStorage.clear();
+    this.props.history.push('/')
+  }
+
+
   render (){
     return (
 
@@ -28,7 +34,7 @@ class Header extends React.Component {
             <a class="nav-link" href="CreateBill">Saisir ma fiche de frais</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Déconnexion</a>
+            <a class="nav-link" href="/" onClick={() => this.signOut()}>Déconnexion</a>
           </li>
         </ul>
         

@@ -53,11 +53,12 @@ class CreateBill extends React.Component {
     }
 
     async postFiche(){
-        let km = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'b133', mois:'202004', idFraisForfait : 'KM', quantite : this.state.kmQty})
-        let night = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'b133', mois:'202004', idFraisForfait : 'NUI', quantite : this.state.nightsQty})
-        let meals = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'b133', mois:'202004', idFraisForfait : 'REP', quantite : this.state.repasQty})
+        let fiche = await fromBillsApi.postAddFiche({idutilisateur : 'a55', mois:'202104', nbJustificatifs : '5', montantValide : '70.00', dateModif : '2021-04-04', idEtat : 'CR'})
+        let km = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'a55', mois:'202104', idFraisForfait : 'KM', quantite : this.state.kmQty})
+        let night = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'a55', mois:'202104', idFraisForfait : 'NUI', quantite : this.state.nightsQty})
+        let meals = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'a55', mois:'202104', idFraisForfait : 'REP', quantite : this.state.repasQty})
         this.state.fraishorsforfait.map(async (f,i) => {
-            let horsforfait = await fromBillsApi.postLigneFraisHorsForfait({idutilisateur : 'b132', mois:'202004', libelle : f.libelle, date : f.date, montant : f.montant})
+            let horsforfait = await fromBillsApi.postLigneFraisHorsForfait({idutilisateur : 'a55', mois:'202104', libelle : f.libelle, date : f.date, montant : f.montant})
 
         })
         
@@ -82,7 +83,7 @@ class CreateBill extends React.Component {
         return (
             <main className="flex-shrink-0">
                 <div className="container">
-                <form action="" method="POST" enctype="multipart/form-data">
+                
                     <h1 class="text-center pt100">
                         Fiche de remboursement du mois {this.state.date}
                     </h1>
@@ -165,9 +166,9 @@ class CreateBill extends React.Component {
                             </div>
                         </div>
                                 <div class="col text-center">
-                                    <button type="submit" class="btn btn-primary mt-3 mb-3" onClick={() => this.postFiche()}>Enregistrer </button>
+                                    <button type="submit" class="btn btn-primary mt-3 mb-3" onClick={() => this.postFiche()}>Créer la fiche </button>
                                 </div>
-                    </form>
+                    
                     </div>
 
         </main>

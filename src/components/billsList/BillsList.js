@@ -75,8 +75,18 @@ class BillsList extends React.Component {
     }
 
     async update() {
-        let id = localStorage.getItem('id')
-        await fromBillsApi.putLigneFraisForfait(id, this.state.mois, this.state.idFraisForfait[0],this.state.kmQty)
+        let idUser = localStorage.getItem('id')
+        
+        await fromBillsApi.putLigneFraisForfait(idUser, this.state.mois, this.state.idFraisForfait[0],this.state.kmQty)
+        await fromBillsApi.putLigneFraisForfait(idUser, this.state.mois, this.state.idFraisForfait[1],this.state.nightsQty)
+        await fromBillsApi.putLigneFraisForfait(idUser, this.state.mois, this.state.idFraisForfait[2],this.state.repasQty)
+        
+        this.state.fraishorsforfait.map(async (f,i) => {
+            
+            let horsforfait = await fromBillsApi.putLigneFraisHorsForfait(f.id, {idutilisateur : idUser, mois: this.state.mois, libelle : f.libelle, date : f.date, montant : f.montant})
+        })
+
+        
         this.setState({
             visible : !this.state.visible
         })
@@ -127,6 +137,7 @@ class BillsList extends React.Component {
                         <tbody>
                             {
                                 this.state.bills.map((bill, i) => {
+                                    
                                    // bill.dateModif = moment(bill.dateModif).format("DD/MM/YYYY")
                                     return (
                                         <tr>
@@ -213,6 +224,7 @@ class BillsList extends React.Component {
                                         <tbody>
                                         
                                             {
+                                                
                                                 this.state.fraishorsforfait.map((f, i) => {
                                                     return (
                                                         <tr key={i}>
@@ -228,9 +240,10 @@ class BillsList extends React.Component {
                                                         </tr>
                                                     )
                                                 })
+                                                
                                             }
                                             
-
+                                            
                                         </tbody>
                                     </table>
                                 </div>
