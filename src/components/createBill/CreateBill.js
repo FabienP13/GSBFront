@@ -1,5 +1,6 @@
 import React from 'react'
 import './CreateBill.css'
+import {withRouter } from "react-router-dom";
 import * as fromBillsApi from '../../api/bills'
 
 
@@ -51,6 +52,8 @@ class CreateBill extends React.Component {
             fraishorsforfait:row
         })
     }
+
+    
 
     async postFiche(){
         let idUser = localStorage.getItem('id')
@@ -191,4 +194,4 @@ class CreateBill extends React.Component {
     }
 }
 
-export default CreateBill;
+export default withRouter(CreateBill);
