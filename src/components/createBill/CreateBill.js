@@ -62,9 +62,10 @@ class CreateBill extends React.Component {
         let night = await fromBillsApi.postLigneFraisForfait({idutilisateur : idUser, mois: this.state.anneeMois, idFraisForfait : 'NUI', quantite : this.state.nightsQty})
         let meals = await fromBillsApi.postLigneFraisForfait({idutilisateur : idUser, mois: this.state.anneeMois, idFraisForfait : 'REP', quantite : this.state.repasQty})
         this.state.fraishorsforfait.map(async (f,i) => {
-            let horsforfait = await fromBillsApi.postLigneFraisHorsForfait({idutilisateur : idUser, mois: this.state.anneeMois, libelle : f.libelle, date : f.date, montant : f.montant})
+            let horsforfait = await fromBillsApi.postLigneFraisHorsForfait({idutilisateur : idUser, mois: this.state.anneeMois, libelle : f.libelle, date : f.date, montant : f.montant, justificatif : f.libelle})
 
         })
+        
         this.props.history.push('/accueil')
         
     }
@@ -72,6 +73,7 @@ class CreateBill extends React.Component {
 
 
     async componentDidMount() {
+        
         let months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
         let numMonth = new Date().getMonth()
         let year = new Date().getFullYear()
@@ -166,7 +168,7 @@ class CreateBill extends React.Component {
                                                     <tr key={i}>
                                                         <td><input type="date" name="date" value={this.state.fraishorsforfait[i].date} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                         <td><input type="text" placeholder="Libellé" name="libelle" value={this.state.fraishorsforfait[i].libelle} onChange={(e) => this.handleRowsChange(e,i)}/></td>
-                                                        <td><input type="text   " placeholder="Quantité" name="montant" value={this.state.fraishorsforfait[i].montant} onChange={(e) => this.handleRowsChange(e,i)}/></td>
+                                                        <td><input type="text   " placeholder="Montant" name="montant" value={this.state.fraishorsforfait[i].montant} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                         <td><input type="file" name="justificatif" value={this.state.fraishorsforfait[i].justificatif} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                         <td>
                                                             <button type="button" className="btn btn-danger btn-sm mr-2" data-action="delete" onClick={() => this.removeRows(i)}>

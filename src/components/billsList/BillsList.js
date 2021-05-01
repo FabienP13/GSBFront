@@ -84,7 +84,7 @@ class BillsList extends React.Component {
         await fromBillsApi.putLigneFraisForfait(idUser, this.state.mois, this.state.idFraisForfait[2],this.state.repasQty)
         
         this.state.fraishorsforfait.map(async (f,i) => {
-            let horsforfait = await fromBillsApi.putLigneFraisHorsForfait(f.id, {idutilisateur : idUser, mois: this.state.mois, libelle : f.libelle, date : f.date, montant : f.montant})
+            let horsforfait = await fromBillsApi.putLigneFraisHorsForfait(f.id, {idutilisateur : idUser, mois: this.state.mois, libelle : f.libelle, date : f.date, montant : f.montant, libelle: f.libelle})
         })
 
         
@@ -233,7 +233,7 @@ class BillsList extends React.Component {
                                                         <tr key={i}>
                                                             <td><input type="date" name="date" value={this.state.fraishorsforfait[i].date} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                             <td><input type="text" placeholder="Libellé" name="libelle" value={this.state.fraishorsforfait[i].libelle} onChange={(e) => this.handleRowsChange(e,i)}/></td>
-                                                            <td><input type="text   " placeholder="Quantité" name="montant" value={this.state.fraishorsforfait[i].montant} onChange={(e) => this.handleRowsChange(e,i)}/></td>
+                                                            <td><input type="text   " placeholder="Montant" name="montant" value={this.state.fraishorsforfait[i].montant} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                             <td><input type="file" name="justificatif" value={this.state.fraishorsforfait[i].justificatif} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                             <td>
                                                                 <button type="button" className="btn btn-danger btn-sm mr-2" data-action="delete" onClick={() => this.removeRows(i)}>
