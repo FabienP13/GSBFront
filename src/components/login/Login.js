@@ -38,6 +38,8 @@ class Login extends React.Component {
         if(decoded){
             localStorage.setItem('token', token)
             localStorage.setItem('id', decoded.id)
+            localStorage.setItem('nom', decoded.nom)
+            localStorage.setItem('prenom', decoded.prenom)
             this.props.history.push('/accueil')
         } 
      } catch (err){

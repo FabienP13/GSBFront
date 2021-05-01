@@ -12,8 +12,8 @@ class CreateBill extends React.Component {
             nightsQty:0,
             repasQty:0,
             kmQty:0,
-            date:''
-            
+            date:'',
+            anneeMois:''            
         }
 
     }
@@ -53,16 +53,19 @@ class CreateBill extends React.Component {
     }
 
     async postFiche(){
-        let fiche = await fromBillsApi.postAddFiche({idutilisateur : 'a55', mois:'202104', nbJustificatifs : '5', montantValide : '70.00', dateModif : '2021-04-04', idEtat : 'CR'})
-        let km = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'a55', mois:'202104', idFraisForfait : 'KM', quantite : this.state.kmQty})
-        let night = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'a55', mois:'202104', idFraisForfait : 'NUI', quantite : this.state.nightsQty})
-        let meals = await fromBillsApi.postLigneFraisForfait({idutilisateur : 'a55', mois:'202104', idFraisForfait : 'REP', quantite : this.state.repasQty})
+        let idUser = localStorage.getItem('id')
+        let fiche = await fromBillsApi.postAddFiche({idutilisateur : idUser, mois: this.state.anneeMois, nbJustificatifs : '5', montantValide : '70.00', dateModif : '2021-04-04', idEtat : 'CR'})
+        let km = await fromBillsApi.postLigneFraisForfait({idutilisateur : idUser, mois: this.state.anneeMois, idFraisForfait : 'KM', quantite : this.state.kmQty})
+        let night = await fromBillsApi.postLigneFraisForfait({idutilisateur : idUser, mois: this.state.anneeMois, idFraisForfait : 'NUI', quantite : this.state.nightsQty})
+        let meals = await fromBillsApi.postLigneFraisForfait({idutilisateur : idUser, mois: this.state.anneeMois, idFraisForfait : 'REP', quantite : this.state.repasQty})
         this.state.fraishorsforfait.map(async (f,i) => {
-            let horsforfait = await fromBillsApi.postLigneFraisHorsForfait({idutilisateur : 'a55', mois:'202104', libelle : f.libelle, date : f.date, montant : f.montant})
+            let horsforfait = await fromBillsApi.postLigneFraisHorsForfait({idutilisateur : idUser, mois: this.state.anneeMois, libelle : f.libelle, date : f.date, montant : f.montant})
 
         })
+        this.props.history.push('/accueil')
         
     }
+
 
 
     async componentDidMount() {
@@ -73,10 +76,22 @@ class CreateBill extends React.Component {
         months.map((month, i) => {
             if(i == numMonth) monthText = month
         })
-        this.setState({
-            date : ` de ${monthText} ${year}`
+
+
+        let tabMois = ['01','02', '03', '04', '05', '06','07','08','09','10','11','12',]
+        let numMois = new Date().getMonth()
+        let mois 
+        tabMois.map((num, i) => {
+            if (i == numMois) mois = num
         })
+            
+        this.setState({
+            date : ` de ${monthText} ${year}`,
+            anneeMois : year + mois
+        })
+
     }
+
 
 
     render() {
@@ -116,7 +131,7 @@ class CreateBill extends React.Component {
                                         <tr>
                                             <td><label for="" className="form-control-label"><strong>Kilométrage</strong></label></td>
                                             <td><input type="text" name="kmQty" placeholder="Qté" value={this.state.kmQty} onChange={(e) => this.handleChange(e)}/></td>
-                                            <td>Prix au km</td>
+                                            <td>0.6€</td>
                                             <td>{this.state.kmQty * 0.6}</td>
                                         </tr>
                                     </tbody>

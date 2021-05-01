@@ -14,3 +14,4 @@ export const postUsers = async (user) => {
     let decoded = jsonwebtoken.verify(token, 'ppe')
     return {decoded , token }
 }
+

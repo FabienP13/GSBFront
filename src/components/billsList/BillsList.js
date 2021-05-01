@@ -3,6 +3,7 @@ import './BillsList.css';
 import * as fromBillsApi from '../../api/bills'
 import Modal from "react-bootstrap4-modal";
 import moment from 'moment'
+import  * as fromUsersApi from '../../api/users'
 
 
 class BillsList extends React.Component {
@@ -16,6 +17,7 @@ class BillsList extends React.Component {
             quantite:'',
             mois:'',
             bills: [],
+            users:[],
             fraishorsforfait: [],
             kmQty:0,
             nightsQty:0,
@@ -43,7 +45,7 @@ class BillsList extends React.Component {
         }
         this.setState({
             fraishorsforfait : fraishorsforfait    
-        }, () => console.log(this.state.fraishorsforfait))
+        })
     }
 
     ShowModal() {
@@ -82,7 +84,6 @@ class BillsList extends React.Component {
         await fromBillsApi.putLigneFraisForfait(idUser, this.state.mois, this.state.idFraisForfait[2],this.state.repasQty)
         
         this.state.fraishorsforfait.map(async (f,i) => {
-            
             let horsforfait = await fromBillsApi.putLigneFraisHorsForfait(f.id, {idutilisateur : idUser, mois: this.state.mois, libelle : f.libelle, date : f.date, montant : f.montant})
         })
 
@@ -96,7 +97,7 @@ class BillsList extends React.Component {
         
         this.setState({
             fraishorsforfait: [...this.state.fraishorsforfait, {date: '' , libelle: '', montant: '', justificatif: ''}]
-        }, ()=> console.log(this.state.fraishorsforfait))
+        })
     }
     removeRows(i){
         let row = this.state.fraishorsforfait
@@ -107,12 +108,14 @@ class BillsList extends React.Component {
     }
 
     async componentDidMount() {
-        
         let id = localStorage.getItem('id')
         let bills = await fromBillsApi.getBills(id)
         this.setState({ 
-            bills: bills.result 
-        }, () => console.log(this.state))
+            bills: bills.result,
+            
+        })
+
+        
     }
 
 
@@ -122,7 +125,7 @@ class BillsList extends React.Component {
 
             <main className="flex-shrink-0">
                 <div className="container">
-                    <h1 className="mt-5">Bonjour M. Visiteur</h1>
+                   <br/> <h3 className="mt-5">Bonjour, voici vos fiches de frais : </h3> <br/>
                     <table className="table table-hover">
                         <thead>
                             <tr>
@@ -137,8 +140,8 @@ class BillsList extends React.Component {
                         <tbody>
                             {
                                 this.state.bills.map((bill, i) => {
-                                    
-                                   // bill.dateModif = moment(bill.dateModif).format("DD/MM/YYYY")
+                                
+                                   bill.dateModif = moment(bill.dateModif,'YYYY-MM-DD[T]HH:mm:ss').format("DD-MM-YYYY")
                                     return (
                                         <tr>
                                             <th scope="row">{bill.mois}</th>
@@ -161,7 +164,7 @@ class BillsList extends React.Component {
                     <Modal visible={this.state.visible} dialogClassName="modal-80w font-size center modal-fond modal-dialog-scrollable">
                             
                         <div className="modal-header">
-                            <h4 className="modal-title">Modification Fiche Frais ANNEE / MOIS </h4>
+                            <h4 className="modal-title">Modification Fiche Frais de {this.state.mois} </h4>
                             <button type="button" className="btn btn-danger" onClick={() => this.ShowModal()}>
                                 <i class="fas fa-times"></i>
                             </button>
