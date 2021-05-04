@@ -23,7 +23,6 @@ class Logins extends React.Component {
 
   }
 
-
 }
 
 export default Logins;

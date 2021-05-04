@@ -31,10 +31,10 @@ class Header extends React.Component {
             <a class="nav-link active" aria-current="page" href="/accueil">Mes fiches de frais</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="CreateBill">Saisir ma fiche de frais</a>
+            <a class="nav-link active" href="CreateBill">Saisir ma fiche de frais</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/" onClick={() => this.signOut()}>Déconnexion</a>
+            <a class="nav-link active" href="/" onClick={() => this.signOut()}>Déconnexion</a>
           </li>
         </ul>
         

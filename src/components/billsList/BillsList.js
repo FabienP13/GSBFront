@@ -118,7 +118,6 @@ class BillsList extends React.Component {
         
     }
 
-
     render() {
 
         return (
