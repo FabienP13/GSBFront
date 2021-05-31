@@ -1,7 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken'
 
 export const postUsers = async (user) => {
-    let response = await fetch('https://gsb-back.herokuapp.com/login/auth', {
+    let response = await fetch('http://localhost:3001/login/auth', {
         method: 'POST',
         headers: {
             'Accept' : 'application/json',

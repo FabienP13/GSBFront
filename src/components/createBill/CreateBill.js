@@ -125,19 +125,19 @@ class CreateBill extends React.Component {
                                             <td><label className="form-control-label"><strong>Nuitées</strong></label></td>
                                             <td><input type="text" name="nightsQty" placeholder="Qté" value={this.state.nightsQty} onChange={(e) => this.handleChange(e)} /></td>
                                             <td>80€</td>
-                                            <td>{this.state.nightsQty * 80}€</td>
+                                            <td>{Number.parseFloat(this.state.nightsQty * 80).toFixed(2)}€</td>
                                         </tr>
                                         <tr>
                                             <td><label for="" className="form-control-label"><strong>Repas</strong></label></td>
                                             <td><input type="text" name="repasQty" placeholder="Qté" value={this.state.repasQty} onChange={(e) => this.handleChange(e)} /></td>
                                             <td>29€</td>
-                                            <td>{this.state.repasQty * 29}</td>
+                                            <td>{Number.parseFloat(this.state.repasQty * 29).toFixed(2)}</td>
                                         </tr>
                                         <tr>
                                             <td><label for="" className="form-control-label"><strong>Kilométrage</strong></label></td>
                                             <td><input type="text" name="kmQty" placeholder="Qté" value={this.state.kmQty} onChange={(e) => this.handleChange(e)}/></td>
                                             <td>0.6€</td>
-                                            <td>{this.state.kmQty * 0.6}</td>
+                                            <td>{Number.parseFloat(this.state.kmQty * 0.6).toFixed(2)}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -168,7 +168,7 @@ class CreateBill extends React.Component {
                                                     <tr key={i}>
                                                         <td><input type="date" name="date" value={this.state.fraishorsforfait[i].date} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                         <td><input type="text" placeholder="Libellé" name="libelle" value={this.state.fraishorsforfait[i].libelle} onChange={(e) => this.handleRowsChange(e,i)}/></td>
-                                                        <td><input type="text   " placeholder="Montant" name="montant" value={this.state.fraishorsforfait[i].montant} onChange={(e) => this.handleRowsChange(e,i)}/></td>
+                                                        <td><input type="text   " placeholder="Montant" name="montant" value={Number.parseFloat(this.state.fraishorsforfait[i].montant).toFixed(2)} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                         <td><input type="file" name="justificatif" value={this.state.fraishorsforfait[i].justificatif} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                         <td>
                                                             <button type="button" className="btn btn-danger btn-sm mr-2" data-action="delete" onClick={() => this.removeRows(i)}>

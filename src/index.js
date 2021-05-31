@@ -4,6 +4,7 @@ import './index.css';
 import Bills from './views/Bills'; 
 import reportWebVitals from './reportWebVitals';
 import CreateBills from './views/CreateBills'
+import News from './views/News'
 import Logins from './views/Logins'
 import {
   BrowserRouter as Router,
@@ -21,6 +22,7 @@ const Root = () => {
           <Route exact path='/' component={Logins} />
           <ProtectedRoute exact path='/accueil' component={Bills} />
           <ProtectedRoute exact path='/createbill' component={CreateBills} />
+          <ProtectedRoute exact path='/new' component={News} />
         </Switch>
       </Router>
   )

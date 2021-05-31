@@ -19,6 +19,7 @@ class BillsList extends React.Component {
             bills: [],
             users:[],
             fraishorsforfait: [],
+            result: 0,
             kmQty:0,
             nightsQty:0,
             repasQty:0,
@@ -87,9 +88,10 @@ class BillsList extends React.Component {
             let horsforfait = await fromBillsApi.putLigneFraisHorsForfait(f.id, {idutilisateur : idUser, mois: this.state.mois, libelle : f.libelle, date : f.date, montant : f.montant, libelle: f.libelle})
         })
 
+        console.log(this.state.bills)
         
         this.setState({
-            visible : !this.state.visible
+            visible : !this.state.visible            
         })
     }
 
@@ -106,6 +108,10 @@ class BillsList extends React.Component {
             fraishorsforfait:row
         })
     }
+    async decimal(x) {
+        return Number.parseFloat(x).toFixed(2)
+    }
+
 
     async componentDidMount() {
         let id = localStorage.getItem('id')
@@ -114,7 +120,7 @@ class BillsList extends React.Component {
             bills: bills.result,
             
         })
-
+        console.log(this.state.bills)
         
     }
 
@@ -149,9 +155,24 @@ class BillsList extends React.Component {
                                             <td>{bill.dateModif}</td>
                                             <td>{bill.idEtat}</td>
                                             <td>
-                                                <button type="button" class="btn btn-info btn-sm" data-action="update" onClick={() => {this.ShowModal(); this.getLignes(bill.mois)}}>
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
+                                            {(() => {
+                                                if(bill.idEtat != "CR"){
+                                                    return (
+                                                        <button type="button" class="btn btn-danger btn-sm" data-action="update">
+                                                        <i class="fas fa-minus-circle"></i>
+                                                            </button> 
+                                                    )
+                                                    }else {
+                                                        return (
+                                                        <button type="button" class="btn btn-info btn-sm" data-action="update" onClick={() => {this.ShowModal(); this.getLignes(bill.mois)}}>
+                                                        <i class="fas fa-edit"></i>
+                                                            </button> 
+                                                        )
+                                                    }
+                                                
+                                            })()}
+                                                                                                              
+                                             
                                             </td>
                                         </tr>
                                     )
@@ -187,19 +208,19 @@ class BillsList extends React.Component {
                                                 <td><label className="form-control-label"><strong>Nuitées</strong></label></td>
                                                 <td><input type="text" name="nightsQty" placeholder="Qté" value={this.state.nightsQty} onChange={(e) => this.handleChange(e)} /></td>
                                                 <td>80€</td>
-                                                <td>{this.state.nightsQty * 80}€</td>
+                                                <td>{Number.parseFloat(this.state.nightsQty * 80).toFixed(2)}€</td>
                                             </tr>
                                             <tr>
                                                 <td><label for="" className="form-control-label"><strong>Repas</strong></label></td>
                                                 <td><input type="text" name="repasQty" placeholder="Qté" value={this.state.repasQty} onChange={(e) => this.handleChange(e)} /></td>
                                                 <td>29€</td>
-                                                <td>{this.state.repasQty * 29}</td>
+                                                <td>{Number.parseFloat(this.state.repasQty * 29).toFixed(2)}€</td>
                                             </tr>
                                             <tr>
                                                 <td><label for="" className="form-control-label"><strong>Kilométrage</strong></label></td>
                                                 <td><input type="text" name="kmQty" placeholder="Qté" value={this.state.kmQty} onChange={(e) => this.handleChange(e)} /></td>
                                                 <td>0.6€</td>
-                                                <td>{this.state.kmQty * 0.6}</td>
+                                                <td>{Number.parseFloat(this.state.kmQty * 0.6).toFixed(2)}€</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -232,7 +253,7 @@ class BillsList extends React.Component {
                                                         <tr key={i}>
                                                             <td><input type="date" name="date" value={this.state.fraishorsforfait[i].date} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                             <td><input type="text" placeholder="Libellé" name="libelle" value={this.state.fraishorsforfait[i].libelle} onChange={(e) => this.handleRowsChange(e,i)}/></td>
-                                                            <td><input type="text   " placeholder="Montant" name="montant" value={this.state.fraishorsforfait[i].montant} onChange={(e) => this.handleRowsChange(e,i)}/></td>
+                                                            <td><input type="text   " placeholder="Montant" name="montant" value={Number.parseFloat(this.state.fraishorsforfait[i].montant).toFixed(2)} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                             <td><input type="file" name="justificatif" value={this.state.fraishorsforfait[i].justificatif} onChange={(e) => this.handleRowsChange(e,i)}/></td>
                                                             <td>
                                                                 <button type="button" className="btn btn-danger btn-sm mr-2" data-action="delete" onClick={() => this.removeRows(i)}>

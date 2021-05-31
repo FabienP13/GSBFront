@@ -35,12 +35,22 @@ class Login extends React.Component {
     async login(){
     try {
         let {decoded, token } = await postUsers({login: this.state.login, password:this.state.password})
+        console.log(decoded)
         if(decoded){
             localStorage.setItem('token', token)
             localStorage.setItem('id', decoded.id)
             localStorage.setItem('nom', decoded.nom)
             localStorage.setItem('prenom', decoded.prenom)
-            this.props.history.push('/accueil')
+            localStorage.setItem('idRole', decoded.idRole)
+            if(decoded.idRole == "1"){
+                this.props.history.push('/accueil')
+            }
+            else {
+                this.setState({
+                    visible: !this.state.visible
+                })
+            }
+            
         } 
      } catch (err){
             this.setState({

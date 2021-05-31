@@ -34,6 +34,9 @@ class Header extends React.Component {
             <a class="nav-link active" href="CreateBill">Saisir ma fiche de frais</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link active" href="New"></a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="/" onClick={() => this.signOut()}>Déconnexion</a>
           </li>
         </ul>
